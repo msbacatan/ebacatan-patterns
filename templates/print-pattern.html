@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %} Print a Pattern {% endblock %}
+
+
+{% block body %}
+
+<h3>{{ pattern['pattern_name'] }}</h3>
+<hr>
+<div class="form-group">
+    <label class="print">Food category:</label>
+    <p style="display:inline;">{{ pattern['category'] }}</p>
+</div>
+
+<div class="form-group">
+    <label class="print" for="pattern_ingredients"> Ingredients: </label>
+    {% for ingredient in pattern['ingredients'] %}
+    <p> - {{ ingredient }} </p>
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label class="print" for="preparation"> Preparation steps: </label>
+    
+    {% for step in pattern['preparation']%}
+    <p> {{ loop.index }}.  {{ step }} </p>
+    {% endfor %}
+</div>
+
+<div class="form-group">
+    <label class="print" for="notes"> Notes: </label>
+    {{ pattern['notes'] }}
+</div>
+<hr>
+<div class="form-group"> <label> Pattern owner: </label>
+    <p style="display:inline;">{{ pattern['pattern_owner'] }}</p>
+</div>
+<div class="form-group"> <label> Added by: </label>
+    <p style="display:inline;">{{ pattern['added_by'] }}</p>
+</div>
+
+<div class="form-group"> <label> Date added: </label>
+    <p style="display:inline;">{{ pattern['date_added'] }}</p>
+</div>
+
+<div class="form-group"> <label> Last modified: </label>
+    <p style="display:inline;">{{ pattern['date_modified'] }}</p>
+</div>
+
+<br>
+
+{% endblock %}

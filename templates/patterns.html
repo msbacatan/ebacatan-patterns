@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Patterns {% endblock %}
+
+
+{% block body %} 
+
+<h1>Patterns Page</h1>
+
+{% if all_patterns %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Pattern Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Pattern Owner</th>
+            <th scope="col">Added By </th>
+            <th scope="col">Date Added</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pattern in all_patterns %}
+        <tr>
+
+            <td> {{ pattern['pattern_name'] }}</td>
+            <td> {{ pattern['category'] }}</td>
+            <td> {{ pattern['pattern_owner'] }}</td>
+            <td> {{ pattern['added_by'] }}</td>
+            <td> {{ pattern['date_added'] }}</td>
+            <td>
+                <form action="{{ url_for('print_pattern', pattern_id=pattern['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-primary" value="View Pattern" />
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

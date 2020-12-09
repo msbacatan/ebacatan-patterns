@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %} New Patterns {% endblock %}
+
+
+{% block body %}
+
+<h3>Add A New Pattern</h3>
+<hr>
+<form id="new_pattern" method="POST" action="{{ url_for('add_pattern') }}">
+
+    <div class="form-group">
+        <label for="pattern_name"> Pattern name: </label>
+        <input type="text" id="pattern_name" name="pattern_name" class="form-control" required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label for="category" class="mr-sm-2">Food category:</label>
+        <select name="category" class="custom-select mr-sm-2">
+            <option value="" selected disabled hidden> Choose category ... </option>
+            {% for category in all_categories %}
+            <option value="{{ category['category_name'] }}">{{ category['category_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+    <div id="TextBoxesGroupIngredients" class="form-group">
+        <!-- ingredients -->
+        <div id="TextBoxDivIngredients">
+            <label for="pattern_ingredients">Ingredients:</label>
+            <div class="d-flex">
+                <button id="addIngredient" class="btn btn-outline-success mr-1">+</button>
+                <input id="pattern_ingredients" name="ingredients" type="text" value="" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div id="TextBoxesGroupPreparation" class="form-group">
+        <!-- preparation steps -->
+        <div id="TextBoxDivSteps">
+            <label for="preparation">Preparation Steps:</label>
+            <div class="d-flex">
+                <button id="addStep" class="btn btn-outline-success mr-1">+</button>
+                <input id="preparation" name="steps" type="text" value="" class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="notes"> Notes: </label>
+        <textarea id="notes" name="notes" class="form-control" rows="5" cols="50">
+
+        </textarea>
+    </div>
+
+        <div class="form-group"> <label for="pattern_owner"> Pattern owner: </label>
+            <input type="text" id="pattern_owner" name="pattern_owner" class="form-control"></div>
+
+        <div class="form-group"> <label for=" added_by"> Added by: </label>
+            {% if current_user.is_authenticated %}
+            <input type="text " name="added_by" class="form-control" value="{{ current_user.username }}" readonly>
+            {% endif %}</div>
+
+        <div>
+            <button type="submit" class="btn btn-secondary">Add New Pattern</button>
+
+        </div>
+
+
+</form>
+<hr>
+
+<br>
+
+{% endblock %}

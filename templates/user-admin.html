@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %} User Administration {% endblock %}
+
+
+{% block body %} 
+
+<h1>User Admin Page</h1>
+<hr>
+<div class="admin_left">
+    <h3>Create an account</h3>
+    <hr>
+    <form method="POST" action="/admin/add-user">
+
+        <div  class="form-group"> <label for="first_name" > First Name: </label>
+            <input type="text" id="first_name" name="first_name" class="form-control" required autofocus></div>
+
+        <div  class="form-group"> <label for="last_name" > Last Name: </label>
+            <input type="text" id="last_name" name="last_name" class="form-control" required></div>
+
+        <div  class="form-group"> <label for="email" > Email: </label>
+            <input type="text" id="email" name="email" class="form-control" required></div>
+
+        <div  class="form-group"> <label for="password" > Password: </label>
+            <input type="text" id="password" name="password" class="form-control" required></div>
+
+        <div  class="form-group"> <label for="confirm_password" > Confirm password: </label>
+            <input type="text" id="confirm_password" name="confirm_password" class="form-control" required></div>
+
+            <div class="form-group">
+            <label for="role"  class="mr-sm-2" >Role :</label>
+            <select name="role" id="role" class="custom-select mr-sm-2" required>
+                <option value="" selected disabled hidden> Choose role ... </option>
+                {% for role in all_roles %}
+                <option value="{{ role['role_name'] }}">{{ role['role_name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Add new user" class="btn btn-secondary"></div>
+
+    </form>
+</div>
+<br clear="all"><br><br>
+<div>
+    <h3>All accounts</h3>
+
+
+<br>
+{% if all_users %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Date Added</th>
+            <th scope="col">Date Modified</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in all_users %}
+        <tr>
+
+            <td> {{ row['first_name'] }}</td>
+            <td> {{ row['last_name'] }}</td>
+            <td> {{ row['email'] }}</td>
+            <td> {{ row['role'] }}</td>
+            <td> {{ row['date_added'] }}</td>
+            <td> {{ row['date_modified'] }}</td>
+            <td>
+                <form action="{{ url_for('admin_edit_user', user_id=row['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-primary" value="Details" />
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('admin_delete_user', user_id=row['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </form>
+            </td>
+
+           
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+</div>
+{% endblock %}

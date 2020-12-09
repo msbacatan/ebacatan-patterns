@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+
+{% block title %} Pattern Administration {% endblock %}
+
+
+{% block body %} 
+
+<h1>Pattern Admin Page</h1>
+<hr>
+<div class="admin_left">
+    <h3 >Food Categories</h3>
+    <form method='POST' action="{{url_for('add_category')}}">
+        <input type="text" name="new_category" placeholder="add new category"><input type="submit" value="Submit">
+    </form>
+    <hr>
+
+        {% for category in all_categories %}
+    <p><a
+        href="{{ (url_for('delete_category', category_id=category['_id'])) }}"><img src="{{ url_for('static', filename='icons/delete.png') }}"></a>
+        &nbsp;{{ category.category_name }} </p>
+        {% endfor %}
+        <br clear="all">
+    
+</div>
+<br clear="all">
+
+<h3>All Patterns</h3>
+<form method="GET" action="{{ url_for('add_pattern') }}">
+    <button type="submit" class="btn btn-info">Add a new pattern</button>
+</form>
+
+<br>
+{% if all_patterns %}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Pattern Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Pattern Owner</th>
+            <th scope="col">Added By </th>
+            <th scope="col">Date Added</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for pattern in all_patterns %}
+        <tr>
+
+            <td> {{ pattern['pattern_name'] }}</td>
+            <td> {{ pattern['category'] }}</td>
+            <td> {{ pattern['pattern_owner'] }}</td>
+            <td> {{ pattern['added_by'] }}</td>
+            <td> {{ pattern['date_added'] }}</td>
+            <td>
+                <form action="{{ url_for('edit_pattern', pattern_id=pattern['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-primary" value="Details" />
+                </form>
+            </td>
+            <td>
+                <form action="{{ url_for('delete_pattern', pattern_id=pattern['_id']) }}" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </form>
+            </td>
+
+           
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

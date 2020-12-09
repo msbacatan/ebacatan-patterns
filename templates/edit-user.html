@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %} User Edit {% endblock %}
+
+
+{% block body %}
+
+<h3>Edit user account</h3>
+<hr>
+{% if user %}
+<form method="POST" action="{{ url_for('admin_update_user', user_id=user['_id']) }}">
+
+<div class="form-group"> <label for="first_name"> First Name: </label>
+  <input type="text" id="first_name" name="first_name" class="form-control" required autofocus
+    value="{{ user['first_name'] }}"></div>
+
+<div class="form-group"> <label for="last_name"> Last Name: </label>
+  <input type="text" id="last_name" name="last_name" class="form-control" required value="{{ user['last_name'] }}">
+</div>
+
+<div class="form-group"> <label for="email"> Email: </label>
+  <input type="text" id="email" name="email" class="form-control" required value="{{ user['email'] }}"></div>
+
+<div class="form-group"> <label for="password"> Password: </label>
+  <input type="text" id="password" name="password" class="form-control" required value="{{ user['password'] }}"></div>
+
+<div class="form-group"> <label for="confirm_password"> Confirm password: </label>
+  <input type="text" id="confirm_password" name="confirm_password" class="form-control" required
+    value="{{ user['password'] }}"></div>
+
+<div class="form-group">
+  <label for="role" class="mr-sm-2">Role :</label>
+  <select name="role" id="role" class="custom-select mr-sm-2" required>
+    {% for role in all_roles %}
+    <option value="{{ role['role_name'] }}" {% if role['role_name'] == user['role'] %} SELECTED {% endif %}>
+      {{ role['role_name'] }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="form-group"> <label for="date_added"> Date Added: </label>
+  <input type="text" id="date_added" name="date_added" class="form-control" required value="{{ user['date_added'] }}"
+    readonly></div>
+
+<div class="form-group"> <label for="date_modified"> Date Modified: </label>
+  <input type="text" id="date_modified" name="date_modified" class="form-control" required
+    value="{{ user['date_modified'] }}" readonly></div>
+
+<div>
+  <input type="submit" value="Update user" class="btn btn-secondary"></div>
+
+</form>
+</div>
+
+{% endif %}
+
+{% endblock %}

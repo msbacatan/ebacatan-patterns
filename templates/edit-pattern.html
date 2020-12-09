@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} Edit a pattern {% endblock %}
+
+
+{% block body %}
+
+<h3>Edit a Pattern</h3>
+<hr>
+<form method="POST" action="{{ url_for('update_pattern', pattern_id=pattern['_id']) }}">
+
+    <div class="form-group">
+        <label for="pattern_name"> Pattern name: </label>
+        <input type="text" id="pattern_name" name="pattern_name" class="form-control" value="{{ pattern['pattern_name'] }}"
+            required autofocus>
+    </div>
+
+    <div class="form-group">
+        <label for="category" class="mr-sm-2">Food category:</label>
+        <select name="category" id="category" class="custom-select mr-sm-2">
+            {% for category in all_categories %}
+            <option value="{{ category['category_name'] }}" {% if category['category_name'] == pattern['category'] %}
+                SELECTED {% endif %}>{{ category['category_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+        <div id="TextBoxesGroupIngredients" class="form-group">
+            <!-- Ingredients -->
+            <div id="TextBoxDivIngredients">
+                <label for="pattern_ingredients"> Ingredients: </label> 
+                {% for ingredient in pattern.ingredients %}
+                <div class="d-flex">
+                    <button id="addIngredient" class="btn btn-outline-success mr-1">+</button>
+                    <button id="removeIngredient" class="removeIngredientDiv btn btn-outline-danger">-</button>
+                    <input id="pattern_ingredients" name="ingredients" type="text" value="{{ ingredient }}" class="form-control">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+
+   
+        <div id="TextBoxesGroupPreparation" class="form-group">
+            <!-- Ingredients -->
+            <div id="TextBoxDivSteps">
+                <label for="preparation"> Preparation steps: </label> 
+                {% for step in pattern.preparation %}
+                <div class="d-flex">
+                <button id="addStep" class="btn btn-outline-success mr-1">+</button>
+                <button id="removeStep" class="removeIngredientDiv btn btn-outline-danger">-</button>
+                <input id="preparation" name="steps" type="text" value="{{ step }}" class=" form-control">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    <div class="form-group">
+        <label for="notes"> Notes: </label>
+        <textarea id="notes" name="notes" class="form-control notes" rows="15">
+            {{ pattern['notes'] }}
+        </textarea>
+    </div>
+    <div class="form-group"> <label for="pattern_owner"> Pattern owner: </label>
+        <input type="text" id="pattern_owner" name="pattern_owner" class="form-control notes"
+            value="{{ pattern['pattern_owner'] }}"></div>
+
+    <div class="form-group"> <label for=" added_by"> Added by: </label>
+        <input type="text " name="added_by" class="form-control" value="{{ pattern['added_by'] }}" readonly>
+    </div>
+
+    <div class="form-group"> <label for=" date_added"> Date added: </label>
+        <input type="text " name="date_added" class="form-control" value="{{ pattern['date_added'] }}" readonly>
+    </div>
+
+    <div class="form-group"> <label for=" date_modified"> Last modified: </label>
+        <input type="text " name="date_modified" class="form-control" value="{{ pattern['date_modified'] }}" readonly>
+    </div>
+
+    <div>
+        <input type="submit" class="btn btn-secondary" value="Update Pattern"></div>
+
+</form>
+<hr>
+
+<br>
+
+{% endblock %}
