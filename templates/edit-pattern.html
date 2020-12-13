@@ -16,7 +16,7 @@
     </div>
 
     <div class="form-group">
-        <label for="category" class="mr-sm-2">Food category:</label>
+        <label for="category" class="mr-sm-2">Pattern category:</label>
         <select name="category" id="category" class="custom-select mr-sm-2">
             {% for category in all_categories %}
             <option value="{{ category['category_name'] }}" {% if category['category_name'] == pattern['category'] %}
@@ -28,7 +28,7 @@
         <div id="TextBoxesGroupIngredients" class="form-group">
             <!-- Ingredients -->
             <div id="TextBoxDivIngredients">
-                <label for="pattern_ingredients"> Ingredients: </label> 
+                <label for="pattern_ingredients"> Pattern size(s): </label> 
                 {% for ingredient in pattern.ingredients %}
                 <div class="d-flex">
                     <button id="addIngredient" class="btn btn-outline-success mr-1">+</button>
@@ -44,7 +44,7 @@
         <div id="TextBoxesGroupPreparation" class="form-group">
             <!-- Ingredients -->
             <div id="TextBoxDivSteps">
-                <label for="preparation"> Preparation steps: </label> 
+                <label for="preparation"> Pattern details: </label> 
                 {% for step in pattern.preparation %}
                 <div class="d-flex">
                 <button id="addStep" class="btn btn-outline-success mr-1">+</button>

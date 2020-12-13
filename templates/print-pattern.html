@@ -8,19 +8,19 @@
 <h3>{{ pattern['pattern_name'] }}</h3>
 <hr>
 <div class="form-group">
-    <label class="print">Food category:</label>
+    <label class="print">Pattern category:</label>
     <p style="display:inline;">{{ pattern['category'] }}</p>
 </div>
 
 <div class="form-group">
-    <label class="print" for="pattern_ingredients"> Ingredients: </label>
+    <label class="print" for="pattern_ingredients"> Pattern size(s): </label>
     {% for ingredient in pattern['ingredients'] %}
     <p> - {{ ingredient }} </p>
     {% endfor %}
 </div>
 
 <div class="form-group">
-    <label class="print" for="preparation"> Preparation steps: </label>
+    <label class="print" for="preparation"> Pattern details: </label>
     
     {% for step in pattern['preparation']%}
     <p> {{ loop.index }}.  {{ step }} </p>

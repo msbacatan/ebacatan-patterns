@@ -15,7 +15,7 @@
     </div>
 
     <div class="form-group">
-        <label for="category" class="mr-sm-2">Food category:</label>
+        <label for="category" class="mr-sm-2">Pattern category:</label>
         <select name="category" class="custom-select mr-sm-2">
             <option value="" selected disabled hidden> Choose category ... </option>
             {% for category in all_categories %}
@@ -28,7 +28,7 @@
     <div id="TextBoxesGroupIngredients" class="form-group">
         <!-- ingredients -->
         <div id="TextBoxDivIngredients">
-            <label for="pattern_ingredients">Ingredients:</label>
+            <label for="pattern_ingredients"> Pattern size(s):</label>
             <div class="d-flex">
                 <button id="addIngredient" class="btn btn-outline-success mr-1">+</button>
                 <input id="pattern_ingredients" name="ingredients" type="text" value="" class="form-control">
@@ -39,7 +39,7 @@
     <div id="TextBoxesGroupPreparation" class="form-group">
         <!-- preparation steps -->
         <div id="TextBoxDivSteps">
-            <label for="preparation">Preparation Steps:</label>
+            <label for="preparation"> Pattern details:</label>
             <div class="d-flex">
                 <button id="addStep" class="btn btn-outline-success mr-1">+</button>
                 <input id="preparation" name="steps" type="text" value="" class="form-control">
