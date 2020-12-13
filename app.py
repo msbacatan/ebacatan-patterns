@@ -314,7 +314,7 @@ def delete_category(category_id):
 
 ##########  Patterns ##########
 
-# authenticated users can view al the patterns
+# authenticated users can view all the patterns
 @app.route('/patterns', methods=['GET', 'POST'])
 @login_required
 @roles_required('admin', 'contributor', 'user')
@@ -350,6 +350,7 @@ def add_pattern():
         new_pattern = {
             'pattern_name': form['pattern_name'],
             'category': form['category'],
+            'pattern_image': form['pattern_image'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
             'notes': form['notes'],
@@ -362,6 +363,15 @@ def add_pattern():
         flash('New pattern has been added.', 'success')
         return redirect(url_for('view_patterns'))
     return render_template('new-pattern.html', all_categories=categories.find())
+
+@app.route('/create', methods=['POST'])
+def create():
+    if 'pattern_image' in request.files:
+        pattern_image = request.files['pattern_image']
+        mongo.save_files(pattern_image.filename, pattern_image)
+        monogo.db.users.insert({'username' : request.form.get('username'), 'pattern_image_name' : pattern_image.filename}
+        )
+    return 'Done!'
 
 @app.route('/patterns/edit-pattern/<pattern_id>', methods=['GET', 'POST'])
 @login_required
@@ -383,6 +393,7 @@ def update_pattern(pattern_id):
             {
             'pattern_name': form['pattern_name'],
             'category': form['category'],
+            'pattern_image': form['pattern_image'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
             'notes': form['notes'],

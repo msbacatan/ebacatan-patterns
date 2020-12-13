@@ -13,6 +13,13 @@
 </div>
 
 <div class="form-group">
+    <label class="print" for="pattern_image"> Pattern image(s): </label>
+    {% for pattern_image in pattern['pattern_image'] %}
+    <p> - {{ pattern_image }} </p>
+    {% endfor %}
+</div>
+
+<div class="form-group">
     <label class="print" for="pattern_ingredients"> Pattern size(s): </label>
     {% for ingredient in pattern['ingredients'] %}
     <p> - {{ ingredient }} </p>
