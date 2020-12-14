@@ -5,6 +5,7 @@ import datetime
 from bson.objectid import ObjectId
 from flask import Flask, request, render_template, redirect, url_for, session, flash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+from flask_pymongo import PyMongo
 import bcrypt
 from functools import wraps
 
@@ -123,7 +124,7 @@ def search():
 # unauthenticated users can view the about page
 @app.route('/about')
 def about():
-    return 'about page'
+    return render_template('about.html')
 
 # unauthenticated users can see a message on the registration page
 @app.route('/register')
@@ -372,6 +373,18 @@ def create():
         monogo.db.users.insert({'username' : request.form.get('username'), 'pattern_image_name' : pattern_image.filename}
         )
     return 'Done!'
+
+@app.route('/file/<filename>')
+def file(filename):
+    return mongo.send_file(filename)
+
+@app.route('/profile/<username>')
+def profile(username):
+    user = mongo.db.users.find_one_or_404({'username' : username})
+    return f'''
+        <h1>{username}</h1>
+        <img src="{url_for('file', filename=user['pattern_image_name'])}">
+    '''
 
 @app.route('/patterns/edit-pattern/<pattern_id>', methods=['GET', 'POST'])
 @login_required
