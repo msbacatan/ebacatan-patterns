@@ -354,7 +354,7 @@ def add_pattern():
             'pattern_image': form['pattern_image'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
-            'notes': form['notes'],
+            'buy': form['buy'],
             'pattern_owner': form['pattern_owner'],
             'added_by': form['added_by'],
             'date_added': datetime.datetime.now(),
@@ -365,26 +365,21 @@ def add_pattern():
         return redirect(url_for('view_patterns'))
     return render_template('new-pattern.html', all_categories=categories.find())
 
-@app.route('/create', methods=['POST'])
-def create():
+@app.route('/upload', methods=['POST'])
+def upload(filename):
     if 'pattern_image' in request.files:
         pattern_image = request.files['pattern_image']
         mongo.save_files(pattern_image.filename, pattern_image)
-        monogo.db.users.insert({'username' : request.form.get('username'), 'pattern_image_name' : pattern_image.filename}
+        monogo.db.users.insert({'username' : request.form.get('username'), 'filename' : pattern_image.filename}
         )
-    return 'Done!'
+    return redirect(url_for('view_patterns'))
+
 
 @app.route('/file/<filename>')
 def file(filename):
     return mongo.send_file(filename)
 
-@app.route('/profile/<username>')
-def profile(username):
-    user = mongo.db.users.find_one_or_404({'username' : username})
-    return f'''
-        <h1>{username}</h1>
-        <img src="{url_for('file', filename=user['pattern_image_name'])}">
-    '''
+
 
 @app.route('/patterns/edit-pattern/<pattern_id>', methods=['GET', 'POST'])
 @login_required
@@ -409,7 +404,7 @@ def update_pattern(pattern_id):
             'pattern_image': form['pattern_image'],
             'ingredients': form.getlist('ingredients'),
             'preparation': form.getlist('steps'),
-            'notes': form['notes'],
+            'buy': form['buy'],
             'pattern_owner': form['pattern_owner'],
             'added_by': form['added_by'],
             'date_added': form['date_added'],

@@ -15,7 +15,7 @@
 <div class="form-group">
     <label class="print" for="pattern_image"> Pattern image(s): </label>
     {% for pattern_image in pattern['pattern_image'] %}
-    <p> - {{ pattern_image }} </p>
+    <img> - {{ pattern_image }} </img>
     {% endfor %}
 </div>
 
@@ -35,8 +35,8 @@
 </div>
 
 <div class="form-group">
-    <label class="print" for="notes"> Notes: </label>
-    {{ pattern['notes'] }}
+    <label class="print" for="buy"> Where to Buy: </label>
+    {{ pattern['buy'] }}
 </div>
 <hr>
 <div class="form-group"> <label> Pattern owner: </label>
